@@ -1,0 +1,23 @@
+
+.env
+.env.local
+secrets.toml
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Entornos Virtuales (Virtual Environments) ---
+venv/
+env/
+.venv/
+.env/
+
+.streamlit/secrets.toml
+
+.vscode/
+.idea/
+*.swp
+
+.DS_Store
+Thumbs.db
