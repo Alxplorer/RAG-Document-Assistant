@@ -34,7 +34,7 @@ def main():
         embedding=embeddings,
         persist_directory=DB_PATH
     )
-    print(f"¡Ingesta completada! {len(chunks)} chunks guardados en {DB_PATH}")
+    print(f"Ingesta completada... {len(chunks)} chunks guardados en {DB_PATH}")
     return vectordb
 
 if __name__ == "__main__":
