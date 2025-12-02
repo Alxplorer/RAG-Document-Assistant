@@ -12,7 +12,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 import os
 
-os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY")
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 DB_PATH = "db/chroma/" #para definir la ruta de la base de datos
 EMBEDDING_MODEL = "text-embedding-3-small" #para definir el modelo de embeddings
