@@ -3,9 +3,12 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma 
 from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
 
 DATA_PATH = "documentos/" #para definir la ruta del documento
 DB_PATH = "db/chroma/" #para definir la ruta de la base de datos
+
+load_dotenv()  # Cargar variables de entorno desde el archivo .env
 
 def cargar_documentos(path_al_archivo):
     documentos = []
@@ -38,5 +41,5 @@ def main():
     return vectordb
 
 if __name__ == "__main__":
-    os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY") 
+    os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY") 
     main()

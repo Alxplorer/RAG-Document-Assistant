@@ -1,18 +1,21 @@
-# La herramienta para construir la app web
+
 import streamlit as st 
-# La herramienta para la base de datos Chroma
+
 from langchain_chroma import Chroma 
-# La herramienta para el modelo de embeddings de OpenAI
+
 from langchain_openai import OpenAIEmbeddings 
-# La herramienta para el modelo de chat de OpenAI
+
 from langchain_openai import ChatOpenAI 
-# Las herramientas para construir la cadena RAG
+
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 import os
 
-os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+from dotenv import load_dotenv
+load_dotenv()  # Cargar variables de entorno desde el archivo .env
+
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 DB_PATH = "db/chroma/" #para definir la ruta de la base de datos
 EMBEDDING_MODEL = "text-embedding-3-small" #para definir el modelo de embeddings
@@ -33,14 +36,18 @@ def cargar_motor_rag():
     
     retriever = vectorstore.as_retriever() #para definir el recuperador de documentos
     llm = ChatOpenAI(temperature=0, model_name=LLM_MODEL) #para definir el modelo de lenguaje
-    parser = StrOutputParser() 
+    parser = StrOutputParser()  #para convertir la salida en una cadena de texto
     
     prompt = ChatPromptTemplate.from_template(
         """
-        Responde basandote en este contexto del nivel B2 de inglés: {context}
-        Si no sabes la respuesta, di que no lo sabes.
+        Eres un Tutor de Inglés experto y empático especializado en nivel B2. Su objetivo es ayudar al estudiante a comprender la gramática, el vocabulario y corregir sus errores. 
+        Contexto de las guías de estudio:{context}
         Pregunta = {question}
-        Respuesta:
+         Instrucciones: 
+         1. Utiliza el contexto proporcionado anteriormente para responder la pregunta. 
+         2. Si la respuesta NO está estrictamente en el contexto, utiliza tus propios conocimientos como profesor de inglés para responder correctamente, pero mantenlo simple (nivel B2). 
+         3. Explica siempre "Por qué" (dé una pequeña regla gramatical). 
+         4. Sé alentador y educado.
         """
     )
     
@@ -58,8 +65,8 @@ def cargar_motor_rag():
     
     
 def main():
-    st.markdown("🦜🔗 Chatbot Tutor de :red[Inglés Nivel B2]")
-    st.subheader("Creado con arquitectura RAG usando LangChain, Chroma y OpenAI...")
+    st.markdown("Creado con arquitectura RAG usando LangChain, Chroma y OpenAI...")
+    st.subheader("🦜🔗 Chatbot Tutor de :red[Inglés Nivel B2]")
     st.write("¡Hazme cualquier pregunta sobre vocabulario, gramática o cualquier tema relacionado con el nivel B2 de inglés!")
     
     if "historial" not in st.session_state:
@@ -80,7 +87,6 @@ def main():
         else :
             st.write("Por favor, ingresa una pregunta.")
             
-    
 
 if __name__ == "__main__":
     main()
