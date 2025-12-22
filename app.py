@@ -46,8 +46,9 @@ def cargar_motor_rag():
         Contexto de las guías de estudio:{context}
         Pregunta = {question}
          Instrucciones: 
-         1. Utiliza el contexto proporcionado anteriormente para responder la pregunta.  
-         2. Explica siempre "Por qué" (dé una pequeña regla gramatical). 
+         1. Utiliza únicamente usando el contexto proporcionado anteriormente para responder la pregunta.  
+         2. Explica siempre "Por qué" con una pequeña regla gramatical relacionada a la respuesta. 
+         3. Si la pregunta NO está relacionada con el contexto proporcionado, indícalo claramente y NO inventes información.
         """
     )
     
