@@ -24,7 +24,7 @@ def main():
 
     text_splitter = RecursiveCharacterTextSplitter(    #para definir el divisor de texto
         chunk_size=1000, 
-        chunk_overlap=100,  
+        chunk_overlap=150,  
         separators=["\n\n", "\n", " ", ""]
     )
 

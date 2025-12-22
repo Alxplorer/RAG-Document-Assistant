@@ -33,21 +33,21 @@ def cargar_motor_rag():
         persist_directory=DB_PATH,
         embedding_function=embeddings
     )
-    
-    retriever = vectorstore.as_retriever() #para definir el recuperador de documentos
+
+    retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4}) #para definir el recuperador de documentos
     llm = ChatOpenAI(temperature=0, model_name=LLM_MODEL) #para definir el modelo de lenguaje
-    parser = StrOutputParser()  #para convertir la salida en una cadena de texto
+    parser = StrOutputParser()  #para convertir la salida en un string
     
     prompt = ChatPromptTemplate.from_template(
         """
-        Eres un Tutor de Inglés experto y empático especializado en nivel B2. Su objetivo es ayudar al estudiante a comprender la gramática, el vocabulario y corregir sus errores. 
+        Eres un Tutor de Inglés experto y empático. Ayudas a estudiantes de nivel B1 a avanzar hacia un nivel B2.
+        Tu objetivo es explicar gramática y vocabulario de forma clara, corregir errores y dar ejemplos prácticos.
+        Usa un tono paciente y que motive.
         Contexto de las guías de estudio:{context}
         Pregunta = {question}
          Instrucciones: 
-         1. Utiliza el contexto proporcionado anteriormente para responder la pregunta. 
-         2. Si la respuesta NO está estrictamente en el contexto, utiliza tus propios conocimientos como profesor de inglés para responder correctamente, pero mantenlo simple (nivel B2). 
-         3. Explica siempre "Por qué" (dé una pequeña regla gramatical). 
-         4. Sé alentador y educado.
+         1. Utiliza el contexto proporcionado anteriormente para responder la pregunta.  
+         2. Explica siempre "Por qué" (dé una pequeña regla gramatical). 
         """
     )
     
