@@ -10,9 +10,9 @@
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 Try the application running in the cloud here:
-👉 **[CLICK HERE TO CHAT WITH THE BOT](https://rag-document-assistant-qrakl7xvikpye7hmvl3jbq.streamlit.app/)**
+**[CLICK HERE TO CHAT WITH THE BOT](https://rag-document-assistant-qrakl7xvikpye7hmvl3jbq.streamlit.app/)**
 
 ---
 
@@ -35,7 +35,7 @@ Unlike standard ChatGPT, this bot is "grounded" on specific grammar guides and v
 
 * **Core:** Python 3.13.2
 * **Orchestration:** LangChain
-* **LLM:** OpenAI API (GPT-3.5-Turbo / GPT-4)
+* **LLM:** OpenAI API (GPT-3.5-Turbo)
 * **Vector Database:** ChromaDB (Persisted embeddings)
 * **Frontend:** Streamlit
 * **Containerization:** Docker

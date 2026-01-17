@@ -34,21 +34,24 @@ def cargar_motor_rag():
         embedding_function=embeddings
     )
 
-    retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4}) #para definir el recuperador de documentos
-    llm = ChatOpenAI(temperature=0, model_name=LLM_MODEL) #para definir el modelo de lenguaje
+    retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4, "score_threshold": 0.7}) #para definir el recuperador de documentos
+    llm = ChatOpenAI(temperature=0.1, model_name=LLM_MODEL, presence_penalty=0) #para definir el modelo de lenguaje
     parser = StrOutputParser()  #para convertir la salida en un string
     
     prompt = ChatPromptTemplate.from_template(
         """
         Eres un Tutor de Inglés experto y empático. Ayudas a estudiantes de nivel B1 a avanzar hacia un nivel B2.
-        Tu objetivo es explicar gramática y vocabulario de forma clara, corregir errores y dar ejemplos prácticos.
-        Usa un tono paciente y que motive.
+        Tu objetivo es explicar gramática y vocabulario de forma clara,  corregir errores y dar ejemplos prácticos.
+        Usa un tono paciente y que motive. 
         Contexto de las guías de estudio:{context}
         Pregunta = {question}
          Instrucciones: 
-         1. Utiliza únicamente usando el contexto proporcionado anteriormente para responder la pregunta.  
-         2. Explica siempre "Por qué" con una pequeña regla gramatical relacionada a la respuesta. 
-         3. Si la pregunta NO está relacionada con el contexto proporcionado, indícalo claramente y NO inventes información.
+         1. Responde únicamente usando el contexto proporcionado anteriormente para responder la pregunta.  
+         2. Evalúa si la pregunta es relevante para el contexto dado.
+         3. Si NO es relevante, responde: "No tengo información sobre ese tema en mis materiales de aprendizaje."
+         4. Si es relevante, responde usando SOLO la información proporcionada.
+         5. Usa un inglés claro, apropiado para estudiantes de nivel B1-B2.
+         6. Incluye explicaciones de vocabulario si es necesario.
         """
     )
     
