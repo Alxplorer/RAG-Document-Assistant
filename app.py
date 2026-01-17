@@ -34,7 +34,7 @@ def cargar_motor_rag():
         embedding_function=embeddings
     )
 
-    retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4, "score_threshold": 0.7}) #para definir el recuperador de documentos
+    retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 4}, score_threshold=0.6) #para definir el recuperador de documentos
     llm = ChatOpenAI(temperature=0.1, model_name=LLM_MODEL, presence_penalty=0) #para definir el modelo de lenguaje
     parser = StrOutputParser()  #para convertir la salida en un string
     
